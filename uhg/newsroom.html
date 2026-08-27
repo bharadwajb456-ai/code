@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Newsroom - UnitedHealth Group</title>
+<style>
+  :root{
+    --navy:#002677;--ink:#000000;--gray-700:#323334;--gray-500:#6e6e6e;--gray-400:#8a8a8a;
+    --gray-200:#e2e2e2;--gray-100:#f2f2f2;--footer-bg:#1c1c1c;--link:#0057b8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:"OptumSans","Helvetica Neue",Arial,system-ui,-apple-system,sans-serif;color:var(--ink);background:#fff;line-height:1.5;}
+  a{color:var(--link);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  img{max-width:100%;display:block;}
+  button{font:inherit;background:none;border:none;cursor:pointer;}
+
+  header.site-header{border-bottom:1px solid var(--gray-200);position:sticky;top:0;background:#fff;z-index:200;}
+  .header-inner{display:flex;align-items:center;justify-content:space-between;padding:20px 40px;}
+  .logo{display:flex;align-items:center;flex:none;}
+  .logo svg{height:20px;width:auto;}
+  .logo:hover{text-decoration:none;}
+
+  nav.main-nav{display:flex;align-items:center;}
+  .nav-item{position:relative;margin-right:25px;}
+  .nav-item.divider{margin-left:15px;padding-left:15px;border-left:1px solid var(--gray-200);}
+  .nav-trigger{display:flex;align-items:center;gap:6px;padding:8px 4px;font-size:15px;font-weight:500;color:var(--gray-700);}
+  .nav-trigger .chev{width:8px;height:8px;border-right:1.5px solid var(--gray-500);border-bottom:1.5px solid var(--gray-500);transform:rotate(45deg);transition:transform .15s ease;margin-top:-3px;}
+  .nav-item.open .nav-trigger .chev{transform:rotate(-135deg);margin-top:3px;}
+  .nav-item.open .nav-trigger{color:var(--navy);}
+
+  .megamenu{
+    display:none;position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:14px;
+    background:#fff;border:1px solid var(--gray-200);border-radius:4px;box-shadow:0 16px 32px rgba(0,0,0,.14);
+    width:640px;max-width:calc(100vw - 40px);padding:32px;grid-template-columns:1fr 1fr;gap:32px;
+  }
+  .megamenu.wide{width:760px;grid-template-columns:1fr 1fr 1fr;}
+  .nav-item.open .megamenu{display:grid;}
+  .megamenu h3{font-size:18px;font-weight:700;margin-bottom:12px;color:var(--ink);}
+  .megamenu .desc{font-size:14px;line-height:1.5;color:var(--gray-500);}
+  .megamenu ul{list-style:none;}
+  .megamenu ul li{margin-bottom:2px;}
+  .megamenu ul a{display:block;padding:8px 0;font-size:14px;color:var(--ink);font-weight:500;}
+  .megamenu ul a:hover{color:var(--navy);text-decoration:none;}
+  .megamenu .promo{background:var(--gray-100);border-radius:4px;padding:18px;}
+  .megamenu .promo h5{font-size:14px;font-weight:700;margin-bottom:8px;}
+  .megamenu .promo p{font-size:13px;color:var(--gray-500);margin-bottom:14px;}
+  .megamenu .cta-btn{display:inline-block;background:var(--navy);color:#fff;font-size:13px;font-weight:600;padding:10px 18px;border-radius:24px;}
+  .megamenu .cta-btn:hover{text-decoration:none;background:#001a52;}
+
+  .search-btn{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--gray-700);flex:none;margin-left:20px;}
+  .search-btn:hover{background:var(--gray-100);}
+  .search-overlay{display:none;border-top:1px solid var(--gray-200);background:#fff;}
+  .search-overlay.open{display:block;}
+  .search-overlay-inner{padding:16px 40px;display:flex;gap:12px;align-items:center;}
+  .search-overlay input{flex:1;font-size:16px;padding:10px 14px;border:1px solid var(--gray-200);border-radius:4px;outline:none;font-family:inherit;}
+  .search-overlay input:focus{border-color:var(--navy);}
+  .search-overlay button.go{background:var(--navy);color:#fff;padding:10px 18px;border-radius:24px;font-weight:600;font-size:14px;}
+  .search-overlay button.close-search{color:var(--gray-400);font-size:22px;padding:6px;}
+
+  /* ---------- Newsroom sub-nav ---------- */
+  .subnav{background:var(--navy);}
+  .subnav-inner{
+    max-width:1200px;margin:0 auto;padding:0 40px;display:flex;align-items:center;
+    justify-content:space-between;flex-wrap:wrap;
+  }
+  .subnav-links{display:flex;align-items:center;gap:28px;}
+  .subnav-links a{
+    display:inline-block;padding:16px 0;font-size:14px;font-weight:600;color:#c7d3f0;
+    border-bottom:3px solid transparent;
+  }
+  .subnav-links a:hover,.subnav-links a.active{color:#fff;border-bottom-color:#fff;text-decoration:none;}
+  .subnav-cta a{font-size:13px;font-weight:600;color:#fff;text-decoration:underline;}
+
+  main{max-width:1200px;margin:0 auto;padding:48px 40px 80px;}
+  h1.page-title{font-size:42px;font-weight:700;margin-bottom:16px;}
+  p.page-lead{font-size:17px;color:var(--gray-700);max-width:780px;line-height:1.7;margin-bottom:48px;}
+
+  /* ---------- Featured ---------- */
+  .featured{
+    display:grid;grid-template-columns:280px 1fr;gap:36px;align-items:center;
+    padding-bottom:44px;margin-bottom:44px;border-bottom:1px solid var(--gray-200);
+  }
+  .featured .media{
+    background:#f6f4ee;border:1px solid var(--gray-200);border-radius:6px;padding:24px;
+    display:flex;align-items:center;justify-content:center;aspect-ratio:4/3;
+  }
+  .featured .media img{max-width:100%;}
+  .featured .eyebrow{font-size:12px;font-weight:700;letter-spacing:.5px;color:var(--navy);text-transform:uppercase;margin-bottom:10px;}
+  .featured h2{font-size:28px;font-weight:700;line-height:1.35;margin-bottom:10px;}
+  .featured h2 a{color:var(--ink);}
+  .featured h2 a:hover{color:var(--navy);text-decoration:none;}
+  .featured .date{font-size:13px;color:var(--gray-500);}
+
+  /* ---------- Category sections ---------- */
+  .cat-section{margin-bottom:52px;}
+  .cat-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:24px;}
+  .cat-header h2{font-size:24px;font-weight:700;}
+  .cat-header a.viewmore{font-size:14px;font-weight:700;}
+  .cat-list{display:flex;flex-direction:column;}
+  .cat-row{
+    display:flex;justify-content:space-between;align-items:flex-start;gap:24px;
+    padding:20px 0;border-bottom:1px solid var(--gray-200);
+  }
+  .cat-row .type{font-size:11px;font-weight:700;color:var(--navy);letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px;}
+  .cat-row h3{font-size:17px;font-weight:700;line-height:1.4;}
+  .cat-row h3 a{color:var(--ink);}
+  .cat-row h3 a:hover{color:var(--navy);text-decoration:none;}
+  .cat-row .date{font-size:13px;color:var(--gray-500);white-space:nowrap;padding-top:3px;}
+
+  .cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+  .article-card img{aspect-ratio:16/9;object-fit:cover;border-radius:4px;margin-bottom:14px;}
+  .article-card .type{font-size:11px;font-weight:700;color:var(--navy);letter-spacing:.5px;text-transform:uppercase;margin-bottom:8px;}
+  .article-card h3{font-size:17px;font-weight:700;line-height:1.4;margin-bottom:8px;}
+  .article-card h3 a{color:var(--ink);}
+  .article-card h3 a:hover{color:var(--navy);text-decoration:none;}
+  .article-card p{font-size:14px;color:var(--gray-500);margin-bottom:10px;line-height:1.55;}
+  .article-card .date{font-size:12px;color:var(--gray-400);}
+
+  /* ---------- Subscribe ---------- */
+  .subscribe-wrap{background:var(--gray-100);border-radius:8px;padding:40px;}
+  .subscribe-wrap h2{font-size:22px;font-weight:700;margin-bottom:20px;}
+  .subscribe-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px;}
+  .subscribe-row input[type=email]{
+    flex:1;min-width:240px;font-size:15px;padding:12px 14px;border:1px solid var(--gray-200);
+    border-radius:4px;outline:none;font-family:inherit;
+  }
+  .subscribe-row input:focus{border-color:var(--navy);}
+  .subscribe-row button{background:var(--navy);color:#fff;font-weight:600;font-size:14px;padding:12px 26px;border-radius:24px;white-space:nowrap;}
+  .subscribe-row button:hover{background:#001a52;}
+  .subscribe-types{display:flex;flex-wrap:wrap;gap:18px;}
+  .subscribe-types label{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--gray-700);}
+
+  footer{background:var(--footer-bg);color:#cfcfcf;padding:48px 40px 28px;}
+  .footer-inner{max-width:1200px;margin:0 auto;}
+  .footer-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:24px;padding-bottom:28px;border-bottom:1px solid #3a3a3a;}
+  .footer-logo{font-weight:800;font-size:20px;color:#fff;}
+  .footer-links{display:flex;flex-wrap:wrap;gap:18px;max-width:640px;}
+  .footer-links a{font-size:13px;color:#cfcfcf;}
+  .footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:20px;flex-wrap:wrap;gap:16px;}
+  .copyright{font-size:12px;color:#9a9a9a;}
+  .social{display:flex;gap:14px;align-items:center;}
+  .social a{width:32px;height:32px;border:1px solid #4a4a4a;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#cfcfcf;font-size:13px;}
+  .follow-us{font-size:12px;color:#9a9a9a;margin-right:6px;}
+
+  @media (max-width:1080px){
+    nav.main-nav{display:none;}
+    .header-inner{padding:16px 20px;}
+    main{padding:36px 20px 60px;}
+    .featured{grid-template-columns:1fr;}
+    .cat-grid{grid-template-columns:1fr;}
+    .subnav-inner{padding:0 20px;}
+    footer{padding:40px 20px 24px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo" href="https://www.unitedhealthgroup.com/content/uhg/en.html" aria-label="UnitedHealth Group home">
+      <svg viewBox="0 0 298 25" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="uhglogo4"><title id="uhglogo4">United Health Group Logo</title>
+        <path d="M198.398 23.0689H196.613C196.097 23.0689 195.691 22.6622 195.691 22.1504V14.6922H188.444V22.1504C188.444 22.6622 188.041 23.0689 187.525 23.0689H185.74C185.224 23.0689 184.818 22.6622 184.818 22.1504V5.2812C184.818 4.79368 185.224 4.36542 185.713 4.36542H187.552C188.041 4.36542 188.444 4.79368 188.444 5.2812V12.0607H195.691V5.2812C195.691 4.79368 196.097 4.36542 196.583 4.36542H198.425C198.911 4.36542 199.32 4.79368 199.32 5.2812V22.1504C199.32 22.6622 198.911 23.0689 198.398 23.0689Z" fill="black"/>
+        <path d="M7.81715 23.3922C2.05771 23.3922 0 20.16 0 16.3164V2.9595C0 2.41542 0.465081 1.91174 1.0221 1.91174H2.64988C3.2069 1.91174 3.67198 2.41542 3.67198 2.9595V16.6962C3.67198 20.1735 5.6026 21.1081 7.89556 21.1081C10.9321 21.1081 12.1191 19.5648 12.1191 16.6962V2.9595C12.1191 2.41542 12.5842 1.91174 13.1412 1.91174H14.5743C15.1341 1.91174 15.5964 2.41542 15.5964 2.9595V16.3164C15.5964 20.7607 12.8817 23.3922 7.81715 23.3922Z" fill="black"/>
+        <path d="M87.7893 6.53103H84.5797V20.898H87.7893C92.0264 20.898 93.0566 17.6955 93.0566 13.8223C93.0566 9.94905 92.0615 6.53103 87.7893 6.53103ZM88.6545 23.069H81.8784C81.3917 23.069 80.9834 22.6488 80.9834 22.1666V5.29473C80.9834 4.8099 81.3917 4.36548 81.8784 4.36548H88.6545C93.1107 4.36548 96.6501 6.74651 96.6501 13.8223C96.6501 20.898 92.8403 23.0663 88.6545 23.0663" fill="black"/>
+        <path d="M115.965 23.0717H114.359C113.78 23.0717 113.323 22.6219 113.323 22.0455V13.4991H104.711V22.0455C104.711 22.6192 104.254 23.0717 103.672 23.0717H102.066C101.49 23.0717 101.036 22.6219 101.036 22.0455V3.08348C101.036 2.53671 101.488 2.05188 102.039 2.05188H103.708C104.254 2.05188 104.711 2.53671 104.711 3.08348V10.8057H113.323V3.08348C113.323 2.53671 113.78 2.05188 114.329 2.05188H115.994C116.541 2.05188 116.998 2.53671 116.998 3.08348V22.0455C116.998 22.6192 116.541 23.0717 115.965 23.0717Z" fill="black"/>
+        <path d="M166.461 23.0717H157.398C156.884 23.0717 156.476 22.6677 156.476 22.1532V5.27863C156.476 4.79381 156.884 4.36285 157.371 4.36285H159.266C159.753 4.36285 160.158 4.79381 160.158 5.27863V20.4294H166.461C166.948 20.4294 167.354 20.8631 167.354 21.3479V22.1775C167.354 22.665 166.948 23.069 166.461 23.069" fill="black"/>
+        <path d="M43.8852 23.0716H42.0492C41.5355 23.0716 41.1299 22.6514 41.1299 22.1396V5.29736C41.1299 4.81253 41.5355 4.36542 42.0249 4.36542H43.9096C44.399 4.36542 44.8019 4.81253 44.8019 5.29736V22.1396C44.8019 22.6514 44.399 23.0716 43.8825 23.0716" fill="black"/>
+        <path d="M61.2579 7.00508H56.9883V22.1397C56.9883 22.6515 56.5828 23.0716 56.069 23.0716H54.233C53.7193 23.0716 53.3137 22.6515 53.3137 22.1397V7.00508H49.0144C48.5277 7.00508 48.1221 6.60375 48.1221 6.11893V5.28665C48.1221 4.80182 48.5277 4.36548 49.0144 4.36548H61.2552C61.7419 4.36548 62.1448 4.80451 62.1448 5.28665V6.11893C62.1448 6.60375 61.7419 7.00508 61.2552 7.00508" fill="black"/>
+        <path d="M180.58 7.00508H176.019V22.1397C176.019 22.6515 175.616 23.0716 175.102 23.0716H173.264C172.755 23.0716 172.347 22.6515 172.347 22.1397V7.00508H167.756C167.266 7.00508 166.863 6.60375 166.863 6.11893V5.28665C166.863 4.80182 167.266 4.36548 167.756 4.36548H180.58C181.067 4.36548 181.47 4.80451 181.47 5.28665V6.11893C181.47 6.60375 181.067 7.00508 180.58 7.00508Z" fill="black"/>
+        <path d="M76.8294 23.0716H66.238C65.7513 23.0716 65.3457 22.7592 65.3457 22.2744V5.28665C65.3457 4.80182 65.7513 4.36548 66.238 4.36548H76.4455C76.9349 4.36548 77.3378 4.80451 77.3378 5.28665V6.03004C77.3378 6.51487 76.9349 6.9162 76.4455 6.9162H69.0204V12.1011H75.6938C76.1805 12.1011 76.5861 12.5321 76.5861 13.0169V13.7603C76.5861 14.2451 76.1805 14.6492 75.6938 14.6492H69.0204V20.5102L76.8294 20.5209C77.3161 20.5209 77.719 20.9492 77.719 21.434V22.2771C77.719 22.7619 77.3161 23.0743 76.8294 23.0743" fill="black"/>
+        <path d="M133.389 23.0716H122.798C122.311 23.0716 121.905 22.7591 121.905 22.2743V5.28659C121.905 4.80176 122.311 4.36542 122.798 4.36542H133.005C133.492 4.36542 133.897 4.80445 133.897 5.28659V6.02998C133.897 6.51481 133.492 6.91614 133.005 6.91614H125.58V12.1011H132.251C132.74 12.1011 133.143 12.532 133.143 13.0169V13.7603C133.143 14.2451 132.74 14.6491 132.251 14.6491H125.58V20.5101L133.389 20.5209C133.876 20.5209 134.279 20.9491 134.279 21.434V22.277C134.279 22.7618 133.876 23.0743 133.389 23.0743" fill="black"/>
+        <path d="M34.5889 23.0717H31.8174C30.9575 23.0717 30.5519 22.6758 30.3356 22.1936C28.9593 19.282 23.6298 7.36877 23.6298 7.36877V22.1667C23.6298 22.6515 23.2242 23.0717 22.7375 23.0717H21.4909C21.0015 23.0717 20.5986 22.6515 20.5986 22.1667V5.26247C20.5986 4.77765 21.0015 4.36285 21.4909 4.36285H24.203C25.0034 4.36285 25.4955 4.64028 25.7686 5.23823C27.2017 8.36266 32.4501 19.9769 32.4501 19.9769V5.26247C32.4501 4.77765 32.8557 4.36285 33.3424 4.36285H34.5916C35.0783 4.36285 35.4839 4.77765 35.4839 5.26247V22.164C35.4839 22.6488 35.0783 23.069 34.5916 23.069" fill="black"/>
+        <path d="M141.995 16.4026L144.794 7.13437L147.428 16.4026H141.995ZM152.968 21.8838L147.574 5.22739C147.384 4.65907 146.927 4.36548 146.254 4.36548H143.869C143.177 4.36548 142.793 4.66176 142.601 5.22739L137.223 21.9889C137.166 22.1505 137.109 22.2636 137.109 22.4225C137.109 22.7969 137.437 23.069 137.758 23.069H138.975C139.621 23.069 140.092 22.77 140.281 22.2044L141.344 18.7055H148.185L149.293 22.2044C149.45 22.6919 149.81 23.069 150.635 23.069H152.4C152.806 23.069 153.076 22.7969 153.076 22.3929C153.076 22.2044 153.019 22.0724 152.971 21.8811" fill="black"/>
+        <path d="M235.183 12.6482C237.522 12.6482 238.458 11.5923 238.458 9.58032C238.458 7.44978 237.376 6.45589 235.237 6.45589H232.122V22.0861C232.122 22.5709 231.722 22.9777 231.23 22.9777H229.308C228.824 22.9777 228.418 22.5709 228.418 22.0861V5.18727C228.418 4.70244 228.824 4.27148 229.308 4.27148H235.611C239.48 4.27148 241.889 6.02224 241.889 9.58032C241.889 12.3842 240.107 13.731 238.047 14.2697L242.105 21.8437C242.189 22.0053 242.268 22.1696 242.268 22.3582C242.268 22.6787 242.054 22.9777 241.754 22.9777H239.399C239.126 22.9777 238.828 22.7595 238.696 22.4632L234.359 14.0246C234.248 13.8145 234.053 13.4778 234.053 13.1546C234.053 12.8717 234.194 12.6482 234.691 12.6482H235.178H235.183Z" fill="black"/>
+        <path d="M253.151 5.9792C249.26 5.9792 248.592 9.46455 248.592 13.626C248.592 17.7874 249.306 21.2727 253.094 21.2727C256.883 21.2727 257.707 17.9732 257.707 13.626C257.707 9.2787 256.983 5.9792 253.151 5.9792ZM253.151 23.371C249.528 23.371 244.912 22.1293 244.912 13.626C244.912 5.12267 249.495 3.88098 253.151 3.88098C256.807 3.88098 261.387 5.17385 261.387 13.626C261.387 22.0781 256.904 23.371 253.151 23.371Z" fill="black"/>
+        <path d="M272.018 23.3709C266.986 23.3709 264.929 20.5401 264.929 17.1167V5.18457C264.929 4.69975 265.334 4.27148 265.821 4.27148H267.714C268.203 4.27148 268.609 4.69975 268.609 5.18457V17.3321C268.609 20.4296 270.104 21.27 272.192 21.27C274.941 21.27 275.777 19.6566 275.777 17.3321V5.18457C275.777 4.69975 276.183 4.27148 276.669 4.27148H278.211C278.697 4.27148 279.106 4.69975 279.106 5.18457V17.1167C279.106 21.0788 276.613 23.3709 272.016 23.3709" fill="black"/>
+        <path d="M288.948 13.6231H289.878C291.779 13.6231 293.266 12.6615 293.266 10.1189C293.266 7.33924 291.825 6.42884 289.789 6.42884H286.879V22.0833C286.879 22.5681 286.525 22.9748 286.041 22.9748H284.173C283.686 22.9748 283.283 22.5681 283.283 22.0833V5.18446C283.283 4.69963 283.686 4.26868 284.173 4.26868H290.935C294.575 4.26868 296.7 6.48002 296.7 10.1162C296.7 13.4049 294.762 15.6163 290.93 15.6163C290.2 15.6163 289.481 15.5462 289.037 15.4735C288.261 15.3415 287.912 14.9241 287.912 14.485C287.912 14.046 288.258 13.6204 288.951 13.6204" fill="black"/>
+        <path d="M223.424 22.369C222.434 22.8027 220.89 23.441 217.646 23.441C212.354 23.441 207.611 21.2297 207.611 12.4705C207.611 5.59677 210.532 1.5 217.646 1.5C220.926 1.5 222.74 2.36999 223.167 2.55046C223.819 2.82519 223.862 2.95717 223.862 3.26153C223.862 3.40698 223.781 3.8514 223.762 3.96183C223.657 4.49514 223.505 5.36783 223.421 5.83919C223.378 6.09776 223.34 6.45869 222.943 6.45869C222.616 6.45869 222.329 6.0816 222.153 5.89844C221.875 5.61293 220.301 3.98877 217.643 3.98877C212.597 3.98877 211.743 8.8047 211.743 12.4705C211.743 17.5262 213.392 20.955 217.643 20.955C219.268 20.955 220.12 20.6937 220.385 20.621V13.688C220.385 13.2678 220.631 13.1331 221.064 13.1331H223.397C223.889 13.1331 224.06 13.3324 224.06 13.7203V21.3024C224.06 22.0216 224.016 22.1051 223.421 22.3663" fill="black"/>
+      </svg>
+    </a>
+
+    <nav class="main-nav" id="mainNav">
+      <div class="nav-item" data-nav="about">
+        <button class="nav-trigger" data-toggle="about">About<span class="chev"></span></button>
+        <div class="megamenu">
+          <div>
+            <h3>About</h3>
+            <p class="desc">Healthcare should work better than it does today. Too often, it's complicated, expensive and difficult to navigate. At UnitedHealth Group, we're working to change that. Through UnitedHealthcare and Optum, we're helping make care more affordable, accessible and connected — so more people can live healthier lives and the healthcare system works better for everyone.</p>
+          </div>
+          <ul>
+            <li><a href="https://www.unitedhealthgroup.com/uhg.html">About Overview</a></li>
+            <li><a href="https://www.unitedhealthgroup.com/uhg/mission-values.html">Mission &amp; Values</a></li>
+            <li><a href="https://www.unitedhealthgroup.com/uhg/people-and-culture.html">Our People &amp; Culture</a></li>
+            <li><a href="https://www.unitedhealthgroup.com/uhg/people-and-culture/united-for-giving.html">United for Giving</a></li>
+            <li><a href="https://www.unitedhealthgroup.com/uhg/people-and-culture/awards-recognition.html">Awards &amp; Recognition</a></li>
+            <li><a href="https://www.unitedhealthgroup.com/uhg/people-and-culture/our-foundations.html">United Health Foundation</a></li>
+            <li><a href="https://www.unitedhealthgroup.com/uhg/businesses.html">Our Businesses</a></li>
+            <li><a href="https://www.unitedhealthgroup.com/uhg/sustainability.html">Sustainability</a></li>
+            <li><a href="https://www.unitedhealthgroup.com/uhg/what-we-do.html">What We Do</a></li>
+            <li><a href="https://www.unitedhealthgroup.com/uhg/how-we-do-it.html">How We Do It</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="nav-item" data-nav="careers">
+        <button class="nav-trigger" data-toggle="careers">Careers<span class="chev"></span></button>
+        <div class="megamenu">
+          <div>
+            <h3>Careers</h3>
+            <p class="desc">UnitedHealth Group is a healthcare and well-being company dedicated to improving health outcomes for millions of people around the world. We comprise two distinct but complementary businesses, UnitedHealthcare and Optum, working together to build a better health system for all.</p>
+          </div>
+          <ul>
+            <li><a href="https://www.unitedhealthgroup.com/careers/en.html">Careers Overview</a></li>
+            <li><a href="https://www.unitedhealthgroup.com/careers/en/job-seeker-resources/join-our-talent-community.html">Join our talent community</a></li>
+            <li><a href="https://www.unitedhealthgroup.com/careers/en/work.html">Work Here</a></li>
+            <li><a href="https://www.unitedhealthgroup.com/careers/en/life.html">Life Here</a></li>
+            <li><a href="https://www.unitedhealthgroup.com/careers/en/job-seeker-resources.html">Job Seeker Resources</a></li>
+            <li><a href="https://www.unitedhealthgroup.com/careers/en/job-seeker-resources/blog.html">Blog</a></li>
+            <li><a href="https://www.unitedhealthgroup.com/careers/en/job-seeker-resources/events.html">Events</a></li>
+          </ul>
+          <div class="promo">
+            <h5>Find your next role</h5>
+            <p>Search open positions across UnitedHealth Group, UnitedHealthcare and Optum.</p>
+            <a class="cta-btn" href="https://careers.unitedhealthgroup.com/search-jobs" target="_blank" rel="noopener">Find your next job</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-item" data-nav="newsroom">
+        <button class="nav-trigger" data-toggle="newsroom">Newsroom<span class="chev"></span></button>
+        <div class="megamenu">
+          <div>
+            <h3>Newsroom</h3>
+            <p class="desc">Explore our news stories to see our mission at work, find recent press releases and read research offering solutions for addressing healthcare challenges and opportunities.</p>
+          </div>
+          <ul>
+            <li><a href="newsroom.html">Newsroom Overview</a></li>
+            <li><a href="https://www.unitedhealthgroup.com/newsroom/media-resources.html">Media Resources</a></li>
+            <li><a href="https://www.unitedhealthgroup.com/newsroom/news.html">Latest Updates</a></li>
+            <li><a href="https://www.unitedhealthgroup.com/newsroom/research-reports.html">Insights &amp; Research</a></li>
+            <li><a href="https://www.unitedhealthgroup.com/newsroom/research-reports/research-library.html">Center for Health Care Research</a></li>
+            <li><a href="https://www.unitedhealthgroup.com/newsroom/research-reports/the-path-forward.html">A Path Forward</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="nav-item" data-nav="investors">
+        <button class="nav-trigger" data-toggle="investors">Investor Relations<span class="chev"></span></button>
+        <div class="megamenu wide">
+          <div>
+            <h3>Investor Relations</h3>
+            <p class="desc">We are dedicated to continuously improving the quality of our performance for consumers, customers, care providers and our shareholders.</p>
+          </div>
+          <ul>
+            <li><a href="https://www.unitedhealthgroup.com/investors.html">Investor Relations</a></li>
+            <li><a href="https://www.unitedhealthgroup.com/investors/financial-reports.html">Financial &amp; Earnings Reports</a></li>
+            <li><a href="https://www.unitedhealthgroup.com/investors/shareholder-materials.html">Shareholder Resources</a></li>
+            <li><a href="https://www.unitedhealthgroup.com/investors/stock.html">Dividend History &amp; Stock Basis</a></li>
+            <li><a href="https://www.unitedhealthgroup.com/investors/archive.html">Archive</a></li>
+          </ul>
+          <div class="promo">
+            <h5>UnitedHealth Group Reports Second Quarter 2026 Results</h5>
+            <p>UnitedHealth Group reported second quarter 2026 results and raised guidance for full year 2026.</p>
+            <a class="cta-btn" href="https://www.unitedhealthgroup.com/newsroom/2026/2026-07-16-uhg-reports-second-quarter-2026-results.html">Read Press Release</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-item divider" data-nav="uhc">
+        <button class="nav-trigger" data-toggle="uhc">UnitedHealthcare<span class="chev"></span></button>
+        <div class="megamenu">
+          <div>
+            <h3>UnitedHealthcare</h3>
+            <p class="desc">Our mission is to help people live healthier lives and make the health system work better for everyone. We dedicate ourselves to this every day for our members by being there for what matters in moments big and small.</p>
+            <a class="cta-btn" style="margin-top:14px;display:inline-block;" href="https://www.uhc.com/" target="_blank" rel="noopener">Go to UnitedHealthcare</a>
+          </div>
+          <ul>
+            <li><a href="https://www.uhc.com/find-a-doctor" target="_blank" rel="noopener">Find a Doctor</a></li>
+            <li><a href="https://www.uhc.com/medicare/shop/medicare-advantage-plans.html" target="_blank" rel="noopener">Find Medicare Advantage Plan</a></li>
+            <li><a href="https://member.uhc.com/" target="_blank" rel="noopener">Estimate Drug Costs</a></li>
+            <li><a href="https://member.uhc.com/coverage/?locale=en-US" target="_blank" rel="noopener">Check My Coverage</a></li>
+            <li><a href="https://member.uhc.com/claims-and-accounts/claims" target="_blank" rel="noopener">Review My EOB</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="nav-item" data-nav="optum">
+        <button class="nav-trigger" data-toggle="optum">Optum<span class="chev"></span></button>
+        <div class="megamenu">
+          <div>
+            <h3>Optum</h3>
+            <p class="desc">We're a leading health solution and care delivery organization. Our work is complex, but our mission is simple: create a healthier world, with you at the center.</p>
+            <a class="cta-btn" style="margin-top:14px;display:inline-block;" href="https://www.optum.com/en/" target="_blank" rel="noopener">Go to Optum</a>
+          </div>
+          <ul>
+            <li><a href="https://www.optum.com/en/about-us.html" target="_blank" rel="noopener">About Optum</a></li>
+            <li><a href="https://careers.unitedhealthgroup.com/optum-jobs" target="_blank" rel="noopener">Careers at Optum</a></li>
+            <li><a href="https://business.optum.com/" target="_blank" rel="noopener">For Business</a></li>
+            <li><a href="https://www.optum.com/en/care.html" target="_blank" rel="noopener">Find Care</a></li>
+            <li><a href="https://www.optum.com/en/sign-in.html?selectedTab=Individuals+and+families" target="_blank" rel="noopener">Member Sign-In</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <button class="search-btn" id="searchToggle" aria-label="Search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><line x1="16.5" y1="16.5" x2="21" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </nav>
+  </div>
+
+  <div class="search-overlay" id="searchOverlay">
+    <div class="search-overlay-inner">
+      <input type="text" id="searchInput" placeholder="Search UnitedHealth Group, E.g. Investor Report, Sustainability and More">
+      <button class="go" id="searchGo">Search</button>
+      <button class="close-search" id="searchClose" aria-label="Close search">&times;</button>
+    </div>
+  </div>
+</header>
+
+<div class="subnav">
+  <div class="subnav-inner">
+    <div class="subnav-links">
+      <a href="https://www.unitedhealthgroup.com/newsroom.html" class="active">News home</a>
+      <a href="https://www.unitedhealthgroup.com/newsroom/news.html">Latest updates</a>
+      <a href="https://www.unitedhealthgroup.com/newsroom/media-resources.html">Media resources</a>
+      <a href="https://www.unitedhealthgroup.com/investors/standards/reviews.html">Independent Review Program</a>
+    </div>
+    <div class="subnav-cta">
+      <a href="#subscribe">Subscribe to news alerts</a>
+    </div>
+  </div>
+</div>
+
+<main>
+  <h1 class="page-title">Newsroom</h1>
+  <p class="page-lead">The UnitedHealth Group newsroom provides timely updates, expert insights and comprehensive coverage on healthcare advancements, policy changes and company initiatives.</p>
+
+  <div class="featured">
+    <a class="media" href="https://www.unitedhealthgroup.com/newsroom/2026/2026-08-18-uhc-expands-access-to-child-family-behavioral-coaching.html">
+      <img src="https://www.unitedhealthgroup.com/content/dam/UHG/icons/SocialMediaCards/uhc_stacked_1062.png" alt="UnitedHealthcare Logo">
+    </a>
+    <div>
+      <div class="eyebrow">Press Release</div>
+      <h2><a href="https://www.unitedhealthgroup.com/newsroom/2026/2026-08-18-uhc-expands-access-to-child-family-behavioral-coaching.html">UnitedHealthcare Expands Access to Child and Family Behavioral Coaching to 13 Million Commercial Members</a></h2>
+      <div class="date">AUG 18, 2026</div>
+    </div>
+  </div>
+
+  <section class="cat-section">
+    <div class="cat-header">
+      <h2>Press Releases</h2>
+      <a class="viewmore" href="newsroom/news.html">View more →</a>
+    </div>
+    <div class="cat-list">
+      <div class="cat-row">
+        <div>
+          <div class="type">Press Release</div>
+          <h3><a href="https://www.unitedhealthgroup.com/newsroom/2026/2026-08-12-uhg-authorizes-payment-quarterly-dividend.html">UnitedHealth Group Board Authorizes Payment of Quarterly Dividend</a></h3>
+        </div>
+        <div class="date">Aug. 12, 2026</div>
+      </div>
+      <div class="cat-row">
+        <div>
+          <div class="type">Press Release</div>
+          <h3><a href="https://www.unitedhealthgroup.com/newsroom/2026/2026-07-29-uhg-partners-university-of-tennessee-health-sciences-to-expand-health-hubs.html">UnitedHealth Group Partners with UT Health Sciences to Expand Health Hubs to More Communities Across Tennessee</a></h3>
+        </div>
+        <div class="date">Jul. 29, 2026</div>
+      </div>
+      <div class="cat-row">
+        <div>
+          <div class="type">Press Release</div>
+          <h3><a href="https://www.unitedhealthgroup.com/newsroom/2026/2026-07-16-uhg-reports-second-quarter-2026-results.html">UnitedHealth Group Reports Second Quarter 2026 Results</a></h3>
+        </div>
+        <div class="date">Jul. 16, 2026</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cat-section">
+    <div class="cat-header">
+      <h2>Statements</h2>
+      <a class="viewmore" href="https://www.unitedhealthgroup.com/newsroom/news.html?contenttype=statement">View more →</a>
+    </div>
+    <div class="cat-list">
+      <div class="cat-row">
+        <div>
+          <div class="type">Statement</div>
+          <h3><a href="https://www.unitedhealthgroup.com/newsroom/2026/2026-08-14-uhg-statement-on-events.html">Statement on Today's Events</a></h3>
+        </div>
+        <div class="date">Aug. 14, 2026</div>
+      </div>
+      <div class="cat-row">
+        <div>
+          <div class="type">Statement</div>
+          <h3><a href="https://www.unitedhealthgroup.com/ns/unitedhealth-group-shares-independent-review-findings-and-next-steps.html">UnitedHealth Group Shares Independent Review Findings and Next Steps</a></h3>
+        </div>
+        <div class="date">Jul. 07, 2026</div>
+      </div>
+      <div class="cat-row">
+        <div>
+          <div class="type">Statement</div>
+          <h3><a href="https://www.unitedhealthgroup.com/newsroom/2026/2026-01-22-uhg-provides-testimony-for-house-energy-commerce-ways-means-committee-hearings.html">UnitedHealth Group Provides Testimony for House Energy &amp; Commerce and Ways &amp; Means Committee Hearings</a></h3>
+        </div>
+        <div class="date">Jan. 22, 2026</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cat-section">
+    <div class="cat-header">
+      <h2>Articles</h2>
+      <a class="viewmore" href="https://www.unitedhealthgroup.com/newsroom/news.html?contenttype=story">View more →</a>
+    </div>
+    <div class="cat-grid">
+      <a class="article-card" href="https://www.unitedhealthgroup.com/newsroom/posts/2026/2026-8-supporting-minnesota-children-and-families.html">
+        <img src="https://www.unitedhealthgroup.com/content/dam/UHG/Images/newsroom/newsroom-2026/MN%20Grant%20Announcement.jpg" alt="">
+        <div class="type">Article</div>
+        <h3>Supporting Minnesota children and families</h3>
+        <p>The United Health Foundation is providing $1 million in grants across four Minnesota organizations working to improve children's mental health, strengthen family support and address urgent community needs across the Twin Cities.</p>
+        <div class="date">Aug. 06, 2026</div>
+      </a>
+      <a class="article-card" href="https://www.unitedhealthgroup.com/newsroom/posts/2026/2026-05-america-health-rankings-senior-report.html">
+        <img src="https://www.unitedhealthgroup.com/content/dam/UHG/Images/newsroom/newsroom-2026/2026-AHR_Senior-Report_header.png" alt="">
+        <div class="type">News</div>
+        <h3>America's Health Rankings 2026 Senior Report finds gains in prevention and the workforce caring for older Americans, but also a rise in drug deaths and food insecurity</h3>
+        <div class="date">May. 14, 2026</div>
+      </a>
+      <a class="article-card" href="https://www.unitedhealthgroup.com/newsroom/posts/2026/2026-04-16-building-north-carolina-health-workforce.html">
+        <img src="https://www.unitedhealthgroup.com/content/dam/UHG/Images/newsroom/newsroom-2026/AdobeStock_118485071_1920.jpg" alt="">
+        <div class="type">Article</div>
+        <h3>Future health professionals find their path with UNC Health Foundation</h3>
+        <p>We're creating opportunities for more North Carolinians to pursue careers in healthcare and serve their communities.</p>
+        <div class="date">Apr. 16, 2026</div>
+      </a>
+    </div>
+  </section>
+
+  <section class="subscribe-wrap" id="subscribe">
+    <h2>Subscribe to newsroom alerts</h2>
+    <div class="subscribe-row">
+      <input type="email" id="subEmail" placeholder="Email address">
+      <button id="subBtn">Subscribe</button>
+    </div>
+    <div class="subscribe-types">
+      <label><input type="checkbox" checked> Press Release</label>
+      <label><input type="checkbox"> Report</label>
+      <label><input type="checkbox"> Statement</label>
+      <label><input type="checkbox"> Research</label>
+      <label><input type="checkbox"> Article</label>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <a class="footer-logo" href="https://www.unitedhealthgroup.com/content/uhg/en.html">UHG</a>
+      <div class="footer-links">
+        <a href="https://www.unitedhealthgroup.com/contact-us.html">Contact Us</a>
+        <a href="https://www.unitedhealthgroup.com/suppliers.html">Suppliers</a>
+        <a href="https://www.unitedhealthgroup.com/privacy.html">Privacy Policy</a>
+        <a href="https://www.unitedhealthgroup.com/company-statement-policy.html">Company Statement Policy</a>
+        <a href="https://www.unitedhealthgroup.com/terms-of-use.html">Terms of Use</a>
+        <a href="https://www.unitedhealthgroup.com/sitemap.html">Site Map</a>
+        <a href="https://www.unitedhealthgroup.com/uhg/people-and-culture/our-foundations.html">United Health Foundation</a>
+        <a href="https://www.unitedhealthgroup.com/careers/en/work.html">Careers</a>
+        <a href="https://www.optum.com/?fp-link-id=iq5c7ivx" target="_blank" rel="noopener">Optum</a>
+        <a href="https://www.uhc.com/?fp-link-id=iq5c7ivx" target="_blank" rel="noopener">UnitedHealthcare</a>
+        <a href="https://www.unitedhealthgroup.com/privacy/ca-privacy-rights.html">Do Not Share or Sell My Personal Information</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="copyright">©2026 UNITEDHEALTH GROUP. ALL RIGHTS RESERVED.</div>
+      <div class="social">
+        <span class="follow-us">Follow Us:</span>
+        <a href="https://www.linkedin.com/company/unitedhealth-group/" target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
+        <a href="https://www.instagram.com/unitedhealthgroup/" target="_blank" rel="noopener" aria-label="Instagram">◎</a>
+        <a href="https://www.facebook.com/UnitedHealthGroup" target="_blank" rel="noopener" aria-label="Facebook">f</a>
+        <a href="https://twitter.com/UnitedHealthGrp" target="_blank" rel="noopener" aria-label="X">𝕏</a>
+        <a href="https://www.unitedhealthgroup.com/rss.html" target="_blank" rel="noopener" aria-label="RSS">⚡</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.nav-item').forEach(function(item){
+    var trigger = item.querySelector('.nav-trigger');
+    trigger.addEventListener('click', function(e){
+      e.stopPropagation();
+      var wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.nav-item.open').forEach(function(i){ i.classList.remove('open'); });
+      searchOverlay.classList.remove('open');
+      if(!wasOpen){ item.classList.add('open'); }
+    });
+  });
+  document.addEventListener('click', function(){
+    document.querySelectorAll('.nav-item.open').forEach(function(i){ i.classList.remove('open'); });
+  });
+
+  var searchToggle = document.getElementById('searchToggle');
+  var searchOverlay = document.getElementById('searchOverlay');
+  var searchInput = document.getElementById('searchInput');
+  var searchClose = document.getElementById('searchClose');
+  var searchGo = document.getElementById('searchGo');
+
+  function runSearch(){
+    var q = searchInput.value.trim();
+    if(q){
+      window.open('https://www.google.com/search?q=' + encodeURIComponent('site:unitedhealthgroup.com ' + q), '_blank');
+    }
+  }
+
+  searchToggle.addEventListener('click', function(e){
+    e.stopPropagation();
+    document.querySelectorAll('.nav-item.open').forEach(function(i){ i.classList.remove('open'); });
+    searchOverlay.classList.toggle('open');
+    if(searchOverlay.classList.contains('open')){ searchInput.focus(); }
+  });
+  searchClose.addEventListener('click', function(){
+    searchOverlay.classList.remove('open');
+  });
+  searchGo.addEventListener('click', runSearch);
+  searchInput.addEventListener('keydown', function(e){
+    if(e.key === 'Enter'){ runSearch(); }
+  });
+
+  document.getElementById('subBtn').addEventListener('click', function(){
+    var email = document.getElementById('subEmail').value.trim();
+    if(email && email.includes('@')){
+      alert('Subscribed: ' + email);
+    } else {
+      alert('Please enter a valid email address.');
+    }
+  });
+</script>
+
+</body>
+</html>
