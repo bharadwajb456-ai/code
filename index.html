@@ -173,9 +173,37 @@
     .commit-card{aspect-ratio:16/10;}
     footer{padding:40px 20px 24px;}
   }
+
+  /* ---------- Password gate ---------- */
+  body:not(.unlocked) > *:not(#passwordGate){display:none !important;}
+  #passwordGate{
+    position:fixed;inset:0;background:#fff;z-index:9999;
+    display:flex;align-items:center;justify-content:center;
+  }
+  body.unlocked #passwordGate{display:none;}
+  #passwordGate .gate-box{width:100%;max-width:320px;padding:24px;text-align:center;}
+  #passwordGate input{
+    width:100%;font-size:16px;padding:12px 14px;border:1px solid var(--gray-200);
+    border-radius:4px;outline:none;text-align:center;letter-spacing:2px;margin-bottom:14px;
+  }
+  #passwordGate input:focus{border-color:var(--navy);}
+  #passwordGate button{
+    width:100%;background:var(--navy);color:#fff;font-weight:600;font-size:14px;
+    padding:12px;border-radius:4px;
+  }
+  #passwordGate button:hover{background:#001a52;}
+  #passwordGate .gate-error{color:#c0392b;font-size:13px;margin-top:10px;min-height:16px;}
 </style>
 </head>
 <body>
+
+<div id="passwordGate">
+  <div class="gate-box">
+    <input type="password" id="gatePassword" placeholder="Enter password" autocomplete="off" inputmode="numeric">
+    <button id="gateSubmit">Enter</button>
+    <div class="gate-error" id="gateError"></div>
+  </div>
+</div>
 
 <header class="site-header">
   <div class="header-inner">
@@ -551,6 +579,45 @@
   searchInput.addEventListener('keydown', function(e){
     if(e.key === 'Enter'){ runSearch(); }
   });
+
+  // Password gate
+  (function(){
+    var GATE_PASSWORD = '96183';
+
+    function safeStorageGet(key){
+      try { return sessionStorage.getItem(key); } catch(e){ return null; }
+    }
+    function safeStorageSet(key, val){
+      try { sessionStorage.setItem(key, val); } catch(e){ /* storage unavailable, ignore */ }
+    }
+
+    function tryUnlock(){
+      var gateInput = document.getElementById('gatePassword');
+      var gateError = document.getElementById('gateError');
+      if(gateInput.value === GATE_PASSWORD){
+        document.body.classList.add('unlocked');
+        safeStorageSet('gateUnlocked', '1');
+        if(gateError) gateError.textContent = '';
+      } else {
+        if(gateError) gateError.textContent = 'Incorrect password.';
+        gateInput.value = '';
+        gateInput.focus();
+      }
+    }
+
+    if(safeStorageGet('gateUnlocked') === '1'){
+      document.body.classList.add('unlocked');
+    }
+
+    document.addEventListener('click', function(e){
+      if(e.target && e.target.id === 'gateSubmit'){ tryUnlock(); }
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' && e.target && e.target.id === 'gatePassword'){ tryUnlock(); }
+    });
+    var initialInput = document.getElementById('gatePassword');
+    if(initialInput) initialInput.focus();
+  })();
 </script>
 
 </body>
